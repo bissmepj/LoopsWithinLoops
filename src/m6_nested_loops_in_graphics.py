@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Phil Bissmeyer.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -79,8 +79,25 @@ def draw_L(window, circle, r, c):
       :type c: int
     and m and n are small, positive integers.
     """
+    for i in range(r):
+        center = rg.Point(circle.center.x, circle.center.y + (circle.radius * 2 * i))
+        for j in range(3):
+            new_circle = rg.Circle(center, circle.radius)
+            new_circle.fill_color = circle.fill_color
+            new_circle.attach_to(window)
+            window.render(0.1)
+            center.x += circle.radius * 2
+    for i in range(c):
+        center = rg.Point(circle.center.x + ((6 + (2 * i)) * circle.radius),
+                          circle.center.y + ((r - 1) * 2 * circle.radius))
+        for j in range(3):
+            new_circle = rg.Circle(center, circle.radius)
+            new_circle.fill_color = circle.fill_color
+            new_circle.attach_to(window)
+            window.render(0.1)
+            center.y -= circle.radius * 2
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
@@ -120,8 +137,17 @@ def draw_wall_on_right(rectangle, n, window):
       :type window: rg.RoseWindow
     and n is a small, positive integer.
     """
+    for i in range(n):
+        p1 = rg.Point(rectangle.get_upper_left_corner().x, rectangle.get_upper_left_corner().y + (i * rectangle.get_height()))
+        p2 = rg.Point(rectangle.get_lower_right_corner().x, rectangle.get_lower_right_corner().y + (i * rectangle.get_height()))
+        for j in range(i + 1):
+            new_rect = rg.Rectangle(p1, p2)
+            new_rect.attach_to(window)
+            window.render(0.1)
+            p1.x -= rectangle.get_width()
+            p2.x -= rectangle.get_width()
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
